@@ -47,12 +47,11 @@ const heroDistanceFromEdge = 10; // While waiting
 const paddingX = 100; // The waiting position of the hero in from the original canvas size
 const perfectAreaSize = 10;
 const perfectHitMessages = [
-  "About Me",
-  "Skills",
-  "My Projects",
-  "Hobbies",
-  "Blog",
-  "Contact",
+  " About Me: Hello World! I am Arpit Srivastava, a postgraduate student at Institute of Informatics and Communication, DU and an upcoming software developer. You can call me Appyyy if the function is defined properly :)",
+  " Skills: C++, Python, Django, HTML, CSS, JavaScript",
+  " My Projects: Netflix Landing page with CSS, Blog Web app, Data Vizualization using Globe.gl, Personal Gamified Portfolio",
+  " Hobbies: Sketching, Singing, Watching Movies ",
+  " Contact me at: arpitsri223@gmail.com ",
 ];
 
 // The background moves slower than the hero
@@ -87,6 +86,23 @@ const scoreElement = document.getElementById("score");
 
 // Initialize layout
 resetGame();
+
+function typeMessage(message) {
+  const messageBox = document.getElementById("perfectHitMessageBox");
+  messageBox.style.display = "block"; // Show the message box
+  messageBox.innerText = ""; // Clear any existing message
+
+  let i = 0;
+  function type() {
+    if (i < message.length) {
+      const char = message.charAt(i) === " " ? "&nbsp;" : message.charAt(i); // Replace space with &nbsp;
+      messageBox.innerHTML += char; // Add one character at a time
+      i++;
+      setTimeout(type, 30); // Adjust the typing speed here (100ms per character)
+    }
+  }
+  type();
+}
 
 // Resets game variables and layouts but does not start the game (game starts on keypress)
 function resetGame() {
@@ -235,16 +251,23 @@ function animate(timestamp) {
             // perfectElement.style.opacity = 1;
             // Get a random message from the predefined array
           //  const randomMessage = perfectHitMessages[Math.floor(Math.random() * perfectHitMessages.length)];
-           const messageBox = document.getElementById("perfectHitMessageBox");
+          //  const messageBox = document.getElementById("perfectHitMessageBox");
           //  messageBox.innerText = randomMessage; // Display the message
            if (currentMessageIndex < perfectHitMessages.length) {
-            messageBox.innerText = perfectHitMessages[currentMessageIndex];
+            typeMessage(perfectHitMessages[currentMessageIndex]); // Call typeMessage to show the message with typing effect
             currentMessageIndex++; // Move to the next message
-          } else {
-            messageBox.innerText = "Thanks for visiting my Portfolio Website!";
+           } else {
+            typeMessage("Thanks for visiting my Portfolio Website!"); // Show final message
             currentMessageIndex = 0; // Reset index (optional, for looping)
-          }
-           messageBox.style.display = "block"; // Show the message box
+           }
+          //  if (currentMessageIndex < perfectHitMessages.length) {
+          //   messageBox.innerText = perfectHitMessages[currentMessageIndex];
+          //   currentMessageIndex++; // Move to the next message
+          // } else {
+          //   messageBox.innerText = "Thanks for visiting my Portfolio Website!";
+          //   currentMessageIndex = 0; // Reset index (optional, for looping)
+          // }
+          //  messageBox.style.display = "block"; // Show the message box
 
           // perfectElement.innerText = randomMessage; // Display the message
             // setTimeout(() => (perfectElement.style.opacity = 0), 10000);

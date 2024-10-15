@@ -18,7 +18,13 @@ body {
 
 .message-box {
   position: absolute;
+  max-width: 900px;
   border-radius: 2px;
+  overflow-x: hidden;
+  justify-content: center;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
   border-style: solid;
   border-color: rgba(56, 90, 14, 0.8);
   top: 20px;
@@ -31,12 +37,48 @@ body {
   border-radius: 8px;
   display: none; /* Hidden by default */
   z-index: 100; /* Ensures it stays on top of the game canvas */
+  
+  /* Ensure text wraps and box expands vertically */
+  white-space: normal;
+  word-wrap: break-word;
 }
+
+
+/* .message-box {
+  position: absolute;
+  max-width: 1000px;
+  border-radius: 2px;
+  overflow-x: hidden;
+  justify-content: center;
+  overflow-y: auto;
+  display:flex;
+  flex-wrap: wrap;
+  border-style: solid;
+  border-color: rgba(56, 90, 14, 0.8);
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: rgba(124, 214, 14, 0.8);
+  color: white;
+  font-size: 18px;
+  border-radius: 8px;
+  display: none; /* Hidden by default */
+  /* z-index: 100; /* Ensures it stays on top of the game canvas */
+/* } */
 
 #score {
   position: absolute;
   top: 30px;
   right: 30px;
+  font-size: 2em;
+  font-weight: 900;
+}
+
+#score1 {
+  position: absolute;
+  top: 30px;
+  left: 30px;
   font-size: 2em;
   font-weight: 900;
 }
