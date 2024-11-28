@@ -47,7 +47,7 @@ const heroDistanceFromEdge = 10; // While waiting
 const paddingX = 100; // The waiting position of the hero in from the original canvas size
 const perfectAreaSize = 10;
 const perfectHitMessages = [
-  " About Me: Hello World! I am Arpit Srivastava, a postgraduate student at Institute of Informatics and Communication, DU and an upcoming software developer. You can call me Appyyy if the function is defined properly :)",
+  " About Me: Hello World! I am Arpit Srivastava, a postgraduate student at Institute of Informatics and Communication, DU, and an upcoming software developer. YouTuber by hobby, you can call me Appyyy if the function is defined properly :)",
   " Skills: C++, Python, Django, HTML, CSS, JavaScript",
   " My Projects: Netflix Landing page with CSS, Blog Web app, Data Vizualization using Globe.gl, Personal Gamified Portfolio, Rental Website",
   " Hobbies: Sketching, Singing, Watching Movies, Gaming ",
