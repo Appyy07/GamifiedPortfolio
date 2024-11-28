@@ -211,6 +211,12 @@ window.addEventListener("mouseup", function (event) {
   }
 });
 
+let lastTapTime = 0; // For double-tap detection
+let lastTimestamp;
+
+// Prevent double-tap zoom via meta tag or code (choose one approach)
+
+// Add touch event listeners
 window.addEventListener("touchstart", function (event) {
   if (phase === "waiting") {
     lastTimestamp = undefined;
@@ -218,7 +224,14 @@ window.addEventListener("touchstart", function (event) {
     phase = "stretching";
     window.requestAnimationFrame(animate);
   } else {
-    handleDoubleTap(event); // Check for double-tap
+    const currentTime = new Date().getTime();
+    const tapGap = currentTime - lastTapTime;
+
+    if (tapGap < 300 && tapGap > 0) {
+      event.preventDefault(); // Prevent zooming
+      resetGame(); // Restart the game
+    }
+    lastTapTime = currentTime;
   }
 });
 
@@ -228,25 +241,34 @@ window.addEventListener("touchend", function (event) {
   }
 });
 
-// Double-tap detection
-let lastTapTime = 0;
-
-function handleDoubleTap(event) {
-  const currentTime = new Date().getTime();
-  const tapGap = currentTime - lastTapTime;
-
-  if (tapGap < 300 && tapGap > 0) {
-    // Double-tap detected
-    event.preventDefault();
-    resetGame();
-  }
-  lastTapTime = currentTime;
-}
-
-// Prevent touch scrolling
+// Prevent scrolling and pinch-to-zoom
 window.addEventListener("touchmove", function (event) {
   event.preventDefault();
 }, { passive: false });
+
+window.addEventListener("gesturestart", function (event) {
+  event.preventDefault();
+});
+
+window.addEventListener("gesturechange", function (event) {
+  event.preventDefault();
+});
+
+// Animation logic
+function animate(timestamp) {
+  if (!lastTimestamp) lastTimestamp = timestamp;
+
+  const timeDelta = timestamp - lastTimestamp;
+
+  if (phase === "stretching") {
+    stickHeight += timeDelta * 0.01; // Adjust growth rate
+  }
+
+  // Other animation logic...
+
+  lastTimestamp = timestamp;
+  window.requestAnimationFrame(animate);
+}
 
 window.addEventListener("resize", function (event) {
   canvas.width = window.innerWidth;
