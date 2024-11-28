@@ -4,10 +4,17 @@ body {
   margin: 0;
 }
 
-canvas {
-  touch-action: none;
-  -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+body, canvas {
+  -webkit-user-select: none; /* Disable text selection */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; /* Modern browsers */
+  
+  -webkit-touch-callout: none; /* Disable long-press callouts */
+  -webkit-tap-highlight-color: transparent; /* Remove highlight effect */
+  touch-action: none; /* Prevent default touch behaviors like scrolling */
 }
+
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
