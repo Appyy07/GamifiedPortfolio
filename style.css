@@ -4,6 +4,11 @@ body {
   margin: 0;
 }
 
+canvas {
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;

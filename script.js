@@ -49,8 +49,8 @@ const perfectAreaSize = 10;
 const perfectHitMessages = [
   " About Me: Hello World! I am Arpit Srivastava, a postgraduate student at Institute of Informatics and Communication, DU and an upcoming software developer. You can call me Appyyy if the function is defined properly :)",
   " Skills: C++, Python, Django, HTML, CSS, JavaScript",
-  " My Projects: Netflix Landing page with CSS, Blog Web app, Data Vizualization using Globe.gl, Personal Gamified Portfolio",
-  " Hobbies: Sketching, Singing, Watching Movies ",
+  " My Projects: Netflix Landing page with CSS, Blog Web app, Data Vizualization using Globe.gl, Personal Gamified Portfolio, Rental Website",
+  " Hobbies: Sketching, Singing, Watching Movies, Gaming ",
   " Contact me at: arpitsri223@gmail.com ",
 ];
 
@@ -207,6 +207,39 @@ window.addEventListener("mousedown", function (event) {
 
 window.addEventListener("mouseup", function (event) {
   if (phase == "stretching") {
+    phase = "turning";
+  }
+});
+
+let isTouchDevice = false;
+
+canvas.addEventListener("touchstart", function (event) {
+  isTouchDevice = true; // Flag that a touch device is in use
+  if (phase == "waiting") {
+    lastTimestamp = undefined;
+    introductionElement.style.opacity = 0;
+    phase = "stretching";
+    window.requestAnimationFrame(animate);
+  }
+});
+
+canvas.addEventListener("touchend", function (event) {
+  if (isTouchDevice && phase == "stretching") {
+    phase = "turning";
+  }
+});
+
+canvas.addEventListener("mousedown", function (event) {
+  if (!isTouchDevice && phase == "waiting") {
+    lastTimestamp = undefined;
+    introductionElement.style.opacity = 0;
+    phase = "stretching";
+    window.requestAnimationFrame(animate);
+  }
+});
+
+canvas.addEventListener("mouseup", function (event) {
+  if (!isTouchDevice && phase == "stretching") {
     phase = "turning";
   }
 });
