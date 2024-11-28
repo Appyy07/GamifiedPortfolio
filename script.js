@@ -211,39 +211,6 @@ window.addEventListener("mouseup", function (event) {
   }
 });
 
-let isTouchDevice = false;
-
-canvas.addEventListener("touchstart", function (event) {
-  isTouchDevice = true; // Flag that a touch device is in use
-  if (phase == "waiting") {
-    lastTimestamp = undefined;
-    introductionElement.style.opacity = 0;
-    phase = "stretching";
-    window.requestAnimationFrame(animate);
-  }
-});
-
-canvas.addEventListener("touchend", function (event) {
-  if (isTouchDevice && phase == "stretching") {
-    phase = "turning";
-  }
-});
-
-canvas.addEventListener("mousedown", function (event) {
-  if (!isTouchDevice && phase == "waiting") {
-    lastTimestamp = undefined;
-    introductionElement.style.opacity = 0;
-    phase = "stretching";
-    window.requestAnimationFrame(animate);
-  }
-});
-
-canvas.addEventListener("mouseup", function (event) {
-  if (!isTouchDevice && phase == "stretching") {
-    phase = "turning";
-  }
-});
-
 window.addEventListener("resize", function (event) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
