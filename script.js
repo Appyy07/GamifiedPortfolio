@@ -211,6 +211,43 @@ window.addEventListener("mouseup", function (event) {
   }
 });
 
+window.addEventListener("touchstart", function (event) {
+  if (phase === "waiting") {
+    lastTimestamp = undefined;
+    introductionElement.style.opacity = 0;
+    phase = "stretching";
+    window.requestAnimationFrame(animate);
+  } else {
+    handleDoubleTap(event); // Check for double-tap
+  }
+});
+
+window.addEventListener("touchend", function (event) {
+  if (phase === "stretching") {
+    phase = "turning";
+  }
+});
+
+// Double-tap detection
+let lastTapTime = 0;
+
+function handleDoubleTap(event) {
+  const currentTime = new Date().getTime();
+  const tapGap = currentTime - lastTapTime;
+
+  if (tapGap < 300 && tapGap > 0) {
+    // Double-tap detected
+    event.preventDefault();
+    resetGame();
+  }
+  lastTapTime = currentTime;
+}
+
+// Prevent touch scrolling
+window.addEventListener("touchmove", function (event) {
+  event.preventDefault();
+}, { passive: false });
+
 window.addEventListener("resize", function (event) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
