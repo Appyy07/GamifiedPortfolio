@@ -211,65 +211,6 @@ window.addEventListener("mouseup", function (event) {
   }
 });
 
-let lastTapTime = 0; // For double-tap detection
-let lastTimestamp;
-
-// Prevent double-tap zoom via meta tag or code (choose one approach)
-
-// Add touch event listeners
-window.addEventListener("touchstart", function (event) {
-  if (phase === "waiting") {
-    lastTimestamp = undefined;
-    introductionElement.style.opacity = 0;
-    phase = "stretching";
-    window.requestAnimationFrame(animate);
-  } else {
-    const currentTime = new Date().getTime();
-    const tapGap = currentTime - lastTapTime;
-
-    if (tapGap < 300 && tapGap > 0) {
-      event.preventDefault(); // Prevent zooming
-      resetGame(); // Restart the game
-    }
-    lastTapTime = currentTime;
-  }
-});
-
-window.addEventListener("touchend", function (event) {
-  if (phase === "stretching") {
-    phase = "turning";
-  }
-});
-
-// Prevent scrolling and pinch-to-zoom
-window.addEventListener("touchmove", function (event) {
-  event.preventDefault();
-}, { passive: false });
-
-window.addEventListener("gesturestart", function (event) {
-  event.preventDefault();
-});
-
-window.addEventListener("gesturechange", function (event) {
-  event.preventDefault();
-});
-
-// Animation logic
-function animate(timestamp) {
-  if (!lastTimestamp) lastTimestamp = timestamp;
-
-  const timeDelta = timestamp - lastTimestamp;
-
-  if (phase === "stretching") {
-    stickHeight += timeDelta * 0.01; // Adjust growth rate
-  }
-
-  // Other animation logic...
-
-  lastTimestamp = timestamp;
-  window.requestAnimationFrame(animate);
-}
-
 window.addEventListener("resize", function (event) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
